@@ -6,6 +6,7 @@ package com.grupo10.app.rents;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,16 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Costume")
+@RequestMapping("/api/costume")
 public class CostumeController {
-    
+
     @GetMapping("/all")
-    public String getCostumes(){
-        return "costume 1, costume 2....";
+    public String getCostumes() {
+        return "costume 1, cestume 2...";
     }
     
     @PostMapping("/save")
-    public String createCostume(){
-        return "crated....";
+    public String createCostumes() {
+        return "created...";
+    }
+    
+    @PutMapping("/update")
+    public String updateCostumes(){
+        return "update";
     }
 }
