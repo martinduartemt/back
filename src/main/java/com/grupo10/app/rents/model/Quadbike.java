@@ -43,9 +43,11 @@ public class Quadbike implements Serializable {
     private Integer year;
     @Column
     private String description;
+    @Column
+    private String category;
     
 
-    
-    
+ 
+
     
 }
