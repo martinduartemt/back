@@ -1,44 +1,46 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.model.IQuadbikeRepository;
 import com.grupo10.app.rents.model.Quadbike;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author martinduarteflorez
+ * @author Andres
  */
 @RestController
-@RequestMapping("/api/quadbike")
+@RequestMapping("/api/Quadbike")
 public class QuadbikeController {
     
     @Autowired
     IQuadbikeRepository repository;
     
     @GetMapping("/all")
-    public Iterable<Quadbike> getQuadbike() {
+    public Iterable<Quadbike> getQuadbikes(){
         Iterable<Quadbike> response = repository.findAll();
+        
         return response;
     }
     
     @PostMapping("/save")
-    public String createQuadbike() {
-        return "created...";
+    public String createQuadbike(@RequestBody Quadbike request){
+        
+        repository.save(request);
+        
+        return "crated....";
     }
+
+
     
-    @PutMapping("/update")
-    public String updateQuadbike(){
-        return "update";
-    }
+    
 }
