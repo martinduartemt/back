@@ -10,6 +10,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Andres
  */
-public interface IClientRepository extends CrudRepository<Quadbike, Integer> {
+public interface IClientRepository extends CrudRepository<Client, Integer> {
     
 }
