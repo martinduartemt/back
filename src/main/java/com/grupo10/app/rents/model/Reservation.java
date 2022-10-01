@@ -37,11 +37,14 @@ public class Reservation implements Serializable {
     @Column(name="id")    
     private Integer idReservation;
     @Column
+    
     private Date starDate;
+    
     @Column
     private Date devolitionDate;
     @Column
     private String status;
+    
     @Column
     private Quadbike quadbike;
     @Column

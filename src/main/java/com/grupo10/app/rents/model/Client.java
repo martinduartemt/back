@@ -46,7 +46,7 @@ public class Client implements Serializable {
     @Column
     private String category;
     @Column
-    private Message message;
+    private Message messages;
     @Column
     private Reservation resevation;
     

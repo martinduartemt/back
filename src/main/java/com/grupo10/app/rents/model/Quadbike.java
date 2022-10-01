@@ -6,6 +6,7 @@ package com.grupo10.app.rents.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,8 +45,20 @@ public class Quadbike implements Serializable {
     private Integer year;
     @Column
     private String description;
+    
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("quadbikes")
+    private Category category;
+    
+    
     @Column
-    private String category;
+    private Reservation reservation;
+    
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "quadbike")
+    @JsonIgnoreProperties("quadbike")
+    private List<Message>messages;
     
 
  

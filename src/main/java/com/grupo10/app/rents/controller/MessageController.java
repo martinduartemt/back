@@ -6,6 +6,7 @@ package com.grupo10.app.rents.controller;
 
 
 import com.grupo10.app.rents.model.IMessageRepository;
+import com.grupo10.app.rents.model.IQuadbikeRepository;
 import com.grupo10.app.rents.model.Message;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class MessageController {
     
     @Autowired
     IMessageRepository repository;
+    @Autowired
+    IQuadbikeRepository quadbikeRepository;
     
     @GetMapping("/all")
     public Iterable<Message> getMessages(){

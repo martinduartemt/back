@@ -4,9 +4,12 @@
  */
 package com.grupo10.app.rents.controller;
 
+import com.grupo10.app.rents.model.Category;
+import com.grupo10.app.rents.model.ICategoryRepository;
 import com.grupo10.app.rents.model.IQuadbikeRepository;
 import com.grupo10.app.rents.model.Quadbike;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,9 +27,12 @@ public class QuadbikeController {
     
     @Autowired
     IQuadbikeRepository repository;
+    @Autowired
+    ICategoryRepository categoryRepository;
     
     @GetMapping("/all")
     public Iterable<Quadbike> getQuadbikes(){
+        
         Iterable<Quadbike> response = repository.findAll();
         
         return response;
@@ -35,6 +41,10 @@ public class QuadbikeController {
     @PostMapping("/save")
     public String createQuadbike(@RequestBody Quadbike request){
         
+        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
+        if(!cat.isEmpty()){
+            request.setCategory(cat.get());
+        }
         repository.save(request);
         
         return "crated....";
