@@ -37,6 +37,7 @@ public class Quadbike implements Serializable {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name="id")    
     private Integer id;
+    
     @Column
     private String name;
     @Column
@@ -52,13 +53,13 @@ public class Quadbike implements Serializable {
     @JsonIgnoreProperties("quadbikes")
     private Category category;
     
-    
-    @Column
-    private Reservation reservation;
-    
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "quadbike")
     @JsonIgnoreProperties("quadbike")
     private List<Message>messages;
+    
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "quadbike")
+    @JsonIgnoreProperties("quadbike")          
+    private List<Reservation> reservations;
     
 
  

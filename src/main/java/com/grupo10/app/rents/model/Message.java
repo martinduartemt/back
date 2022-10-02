@@ -35,23 +35,23 @@ public class Message implements Serializable {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name="id")    
     private Integer idMessage;
+    
     @Column
     private String messageText;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quadbike_id")
     @JsonIgnoreProperties("messages")
-    
     private Quadbike quadbike;
-    @Column
+    
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties("messages")
     private Client client;
+    
     @Column
     private Reservation reservation;
-    @Column
-    private String category;
-    
-
- 
 
     
 }

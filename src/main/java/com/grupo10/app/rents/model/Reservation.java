@@ -45,9 +45,14 @@ public class Reservation implements Serializable {
     @Column
     private String status;
     
-    @Column
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "quadbike_id")
+    @JsonIgnoreProperties("reservations")
     private Quadbike quadbike;
-    @Column
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties("reservations")
     private Client client;
     @Column
     private String score;   

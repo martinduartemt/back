@@ -6,9 +6,12 @@ package com.grupo10.app.rents.controller;
 
 
 
+import com.grupo10.app.rents.model.IQuadbikeRepository;
 import com.grupo10.app.rents.model.IReservationRepository;
+import com.grupo10.app.rents.model.Quadbike;
 import com.grupo10.app.rents.model.Reservation;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +29,8 @@ public class ReservationController {
     
     @Autowired
     IReservationRepository repository;
+    @Autowired
+    IQuadbikeRepository IQuadbikeRepository;
     
     @GetMapping("/all")
     public Iterable<Reservation> getReservation(){
@@ -37,12 +42,17 @@ public class ReservationController {
     @PostMapping("/save")
     public String createReservation(@RequestBody Reservation request){
         
-        repository.save(request);
+        Optional<Quadbike> res;
+        res = IQuadbikeRepository.findById(request.getQuadbike().getId());
+           if(!res.isEmpty()){
+            request.setQuadbike(res.get());
         
+        repository.save(request);
+        }
         return "crated....";
     }
 
 
     
     
-}
+    }
