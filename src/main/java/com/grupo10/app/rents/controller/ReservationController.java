@@ -4,8 +4,8 @@
  */
 package com.grupo10.app.rents.controller;
 
-
-
+import com.grupo10.app.rents.model.Client;
+import com.grupo10.app.rents.model.IClientRepository;
 import com.grupo10.app.rents.model.IQuadbikeRepository;
 import com.grupo10.app.rents.model.IReservationRepository;
 import com.grupo10.app.rents.model.Quadbike;
@@ -24,35 +24,43 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Mesagge")
+@RequestMapping("/api/Reservation")
 public class ReservationController {
-    
+
     @Autowired
     IReservationRepository repository;
     @Autowired
-    IQuadbikeRepository IQuadbikeRepository;
-    
+    IQuadbikeRepository quadbikeRepository;
+    @Autowired
+    IClientRepository clientRepository;
+
     @GetMapping("/all")
-    public Iterable<Reservation> getReservation(){
+    public Iterable<Reservation> getReservation() {
+
         Iterable<Reservation> response = repository.findAll();
-        
+
         return response;
     }
-    
+
     @PostMapping("/save")
-    public String createReservation(@RequestBody Reservation request){
-        
-        Optional<Quadbike> res;
-        res = IQuadbikeRepository.findById(request.getQuadbike().getId());
-           if(!res.isEmpty()){
-            request.setQuadbike(res.get());
-        
-        repository.save(request);
+    public String createReservation(@RequestBody Reservation request) {
+
+    Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
+        if (!quad.isEmpty()) {
+            request.setQuadbike(quad.get());
         }
+        
+
+        Optional<Client> cli;
+        cli = clientRepository.findById(request.getClient().getIdClient());
+        if (!cli.isEmpty()) {
+            request.setClient(cli.get());
+
+        }
+        repository.save(request);
+        
         return "crated....";
+
     }
 
-
-    
-    
-    }
+}

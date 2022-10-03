@@ -4,7 +4,6 @@
  */
 package com.grupo10.app.rents.controller;
 
-
 import com.grupo10.app.rents.model.Client;
 import com.grupo10.app.rents.model.IClientRepository;
 import com.grupo10.app.rents.model.IMessageRepository;
@@ -27,43 +26,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/Message")
 public class MessageController {
-    
+
     @Autowired
     IMessageRepository repository;
     @Autowired
     IQuadbikeRepository quadbikeRepository;
     @Autowired
     IClientRepository clientRepository;
-    
+
     @GetMapping("/all")
-    public Iterable<Message> getMessages(){
+    public Iterable<Message> getMessages() {
         Iterable<Message> response = repository.findAll();
-        
+
         return response;
     }
-    
+
     @PostMapping("/save")
-    public String createMessage(@RequestBody Message request){
-        
+    public String createMessage(@RequestBody Message request) {
+
         Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
-        if(!quad.isEmpty()){
+        if (!quad.isEmpty()) {
             request.setQuadbike(quad.get());
         }
-        
-          
+
         Optional<Client> cli;
         cli = clientRepository.findById(request.getClient().getIdClient());
-           if(!cli.isEmpty()){
+        if (!cli.isEmpty()) {
             request.setClient(cli.get());
-   
+
         }
         repository.save(request);
-        
+         
         return "crated....";
-        
+
     }
 
-
-    
-    
 }

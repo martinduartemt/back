@@ -41,17 +41,16 @@ public class Message implements Serializable {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quadbike_id")
-    @JsonIgnoreProperties("messages")
+    @JsonIgnoreProperties({"reservation","messages"})
     private Quadbike quadbike;
     
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties("messages")
+    @JsonIgnoreProperties({"reservation","messages"})
     private Client client;
     
-    @Column
-    private Reservation reservation;
+    
 
     
 }
