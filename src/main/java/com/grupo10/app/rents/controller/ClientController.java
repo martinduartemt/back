@@ -27,14 +27,14 @@ public class ClientController {
     @Autowired
     IClientRepository repository;
     
-    @GetMapping("/all")
+    @GetMapping("/save")
     public Iterable<Client> getClient(){
         Iterable<Client> response = repository.findAll();
         
         return response;
     }
     
-    @PostMapping("/save")
+    @PostMapping("/all")
     public String createClient(@RequestBody Client request){
         
         repository.save(request);

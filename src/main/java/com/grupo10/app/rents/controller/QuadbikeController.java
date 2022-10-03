@@ -30,7 +30,7 @@ public class QuadbikeController {
     @Autowired
     ICategoryRepository categoryRepository;
     
-    @GetMapping("/all")
+    @GetMapping("/save")
     public Iterable<Quadbike> getQuadbikes(){
         
         Iterable<Quadbike> response = repository.findAll();
@@ -38,7 +38,7 @@ public class QuadbikeController {
         return response;
     }
     
-    @PostMapping("/save")
+    @PostMapping("/all")
     public String createQuadbike(@RequestBody Quadbike request){
         
         Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());

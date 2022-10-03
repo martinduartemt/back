@@ -27,14 +27,14 @@ public class CategoryController {
     @Autowired
     ICategoryRepository repository;
     
-    @GetMapping("/all")
+    @GetMapping("/save")
     public Iterable<Category> getCategories(){
         Iterable<Category> response = repository.findAll();
         
         return response;
     }
     
-    @PostMapping("/save")
+    @PostMapping("/all")
     public String createCategory(@RequestBody Category request){
         
         repository.save(request);
