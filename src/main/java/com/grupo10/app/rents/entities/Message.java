@@ -2,11 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.grupo10.app.rents.model;
+package com.grupo10.app.rents.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,38 +25,32 @@ import lombok.Setter;
  * @author Andres
  */
 @Entity
-@Table(name="tb_client")
+@Table(name="tb_message")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client implements Serializable {
+public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name="idClient")    
-    private Integer idClient;
+    @Column(name="id")    
+    private Integer idMessage;
     
     @Column
-    private String name;
-    @Column
-    private String email;
-    @Column
-    private String password;
-    @Column
-    private Integer age;
-
+    private String messageText;
     
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
-    @JsonIgnoreProperties({"client"})
-    private List<Message> messages;
-    
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
-    @JsonIgnoreProperties({"client"})
-    private List<Reservation> reservations;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "quadbike_id")
+    @JsonIgnoreProperties({"reservations","messages"})
+    private Quadbike quadbike;
     
     
-
- 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties({"reservations","messages"})
+    private Client client;
+    
+    
 
     
 }

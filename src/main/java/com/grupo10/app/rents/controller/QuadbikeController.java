@@ -4,12 +4,8 @@
  */
 package com.grupo10.app.rents.controller;
 
-import com.grupo10.app.rents.model.Category;
-import com.grupo10.app.rents.model.ICategoryRepository;
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.Quadbike;
-import java.util.List;
-import java.util.Optional;
+import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.service.QuadbikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,29 +21,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/Quadbike")
 public class QuadbikeController {
     
+    
     @Autowired
-    IQuadbikeRepository repository;
-    @Autowired
-    ICategoryRepository categoryRepository;
+    QuadbikeService service;
     
     @GetMapping("/all")
-    public Iterable<Quadbike> getQuadbikes(){
+    public Iterable<Quadbike> get(){
         
-        Iterable<Quadbike> response = repository.findAll();
+       
         
-        return response;
+        return service.get();
     }
     
     @PostMapping("/save")
     public String createQuadbike(@RequestBody Quadbike request){
         
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        if(!cat.isEmpty()){
-            request.setCategory(cat.get());
-        }
-        repository.save(request);
         
-        return "crated....";
+        return service.create(request);
     }
 
 

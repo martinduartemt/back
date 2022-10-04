@@ -4,14 +4,8 @@
  */
 package com.grupo10.app.rents.controller;
 
-import com.grupo10.app.rents.model.Client;
-import com.grupo10.app.rents.model.IClientRepository;
-import com.grupo10.app.rents.model.IMessageRepository;
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.Message;
-import com.grupo10.app.rents.model.Quadbike;
-import java.util.List;
-import java.util.Optional;
+import com.grupo10.app.rents.entities.Message;
+import com.grupo10.app.rents.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,37 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
 
     @Autowired
-    IMessageRepository repository;
-    @Autowired
-    IQuadbikeRepository quadbikeRepository;
-    @Autowired
-    IClientRepository clientRepository;
-
+    MessageService service;
+    
     @GetMapping("/all")
-    public Iterable<Message> getMessages() {
-        Iterable<Message> response = repository.findAll();
-
-        return response;
+    public Iterable<Message> get(){
+        
+       
+        
+        return service.get();
     }
-
+    
     @PostMapping("/save")
-    public String createMessage(@RequestBody Message request) {
-
-        Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
-        if (!quad.isEmpty()) {
-            request.setQuadbike(quad.get());
-        }
-
-        Optional<Client> cli;
-        cli = clientRepository.findById(request.getClient().getIdClient());
-        if (!cli.isEmpty()) {
-            request.setClient(cli.get());
-
-        }
-        repository.save(request);
-         
-        return "crated....";
-
+    public String createQuadbike(@RequestBody Message request){
+        
+        
+        return service.create(request);
     }
 
 }

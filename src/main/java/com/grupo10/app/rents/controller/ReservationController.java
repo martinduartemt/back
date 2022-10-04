@@ -4,14 +4,8 @@
  */
 package com.grupo10.app.rents.controller;
 
-import com.grupo10.app.rents.model.Client;
-import com.grupo10.app.rents.model.IClientRepository;
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.IReservationRepository;
-import com.grupo10.app.rents.model.Quadbike;
-import com.grupo10.app.rents.model.Reservation;
-import java.util.List;
-import java.util.Optional;
+import com.grupo10.app.rents.entities.Reservation;
+import com.grupo10.app.rents.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,39 +22,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservationController {
 
     @Autowired
-    IReservationRepository repository;
-    @Autowired
-    IQuadbikeRepository quadbikeRepository;
-    @Autowired
-    IClientRepository clientRepository;
-
+    ReservationService service;
+    
     @GetMapping("/all")
-    public Iterable<Reservation> getReservation() {
-
-        Iterable<Reservation> response = repository.findAll();
-
-        return response;
+    public Iterable<Reservation> get(){
+        
+       
+        return service.get();
     }
-
+    
     @PostMapping("/save")
-    public String createReservation(@RequestBody Reservation request) {
-
-    Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
-        if (!quad.isEmpty()) {
-            request.setQuadbike(quad.get());
-        }
+    public String createQuadbike(@RequestBody Reservation request){
         
-
-        Optional<Client> cli;
-        cli = clientRepository.findById(request.getClient().getIdClient());
-        if (!cli.isEmpty()) {
-            request.setClient(cli.get());
-
-        }
-        repository.save(request);
         
-        return "crated....";
-
+        return service.create(request);
     }
-
 }
