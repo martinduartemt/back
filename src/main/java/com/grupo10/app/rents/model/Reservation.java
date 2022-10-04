@@ -7,6 +7,7 @@ package com.grupo10.app.rents.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,10 +39,10 @@ public class Reservation implements Serializable {
     private Integer idReservation;
     @Column
     
-    private String startDate;
+    private Timestamp startDate;
     
     @Column
-    private String devolutionDate;
+    private Timestamp devolutionDate;
     
     @Column
     private String status;
@@ -53,7 +54,7 @@ public class Reservation implements Serializable {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"messages","reservations"})
+    @JsonIgnoreProperties({"messages","reservations","client"})
     private Client client;
     
     @Column
