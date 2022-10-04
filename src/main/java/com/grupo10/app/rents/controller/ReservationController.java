@@ -34,7 +34,7 @@ public class ReservationController {
     @Autowired
     IClientRepository clientRepository;
 
-    @GetMapping("/save")
+    @GetMapping("/all")
     public Iterable<Reservation> getReservation() {
 
         Iterable<Reservation> response = repository.findAll();
@@ -42,7 +42,7 @@ public class ReservationController {
         return response;
     }
 
-    @PostMapping("/all")
+    @PostMapping("/save")
     public String createReservation(@RequestBody Reservation request) {
 
     Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());

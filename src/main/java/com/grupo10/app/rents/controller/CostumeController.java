@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/Costume")
 public class CostumeController {
     
-    @GetMapping("/all")
+    @GetMapping("/save")
     public String getCostumes(){
         return "costume 1, costume 2....";
     }
     
-    @PostMapping("/save")
+    @PostMapping("/all")
     public String createCostume(){
         return "crated....";
     }

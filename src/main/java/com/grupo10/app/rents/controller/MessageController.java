@@ -34,14 +34,14 @@ public class MessageController {
     @Autowired
     IClientRepository clientRepository;
 
-    @GetMapping("/save")
+    @GetMapping("/all")
     public Iterable<Message> getMessages() {
         Iterable<Message> response = repository.findAll();
 
         return response;
     }
 
-    @PostMapping("/all")
+    @PostMapping("/save")
     public String createMessage(@RequestBody Message request) {
 
         Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
