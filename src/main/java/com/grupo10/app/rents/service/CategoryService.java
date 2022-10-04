@@ -10,7 +10,6 @@ import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
