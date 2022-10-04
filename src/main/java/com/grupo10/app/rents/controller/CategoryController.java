@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.controller;
+package com.grupo10.app.rents.controller;
 
-import com.model.Client;
-import com.model.IClientRepository;
+import com.grupo10.app.rents.model.Category;
+import com.grupo10.app.rents.model.ICategoryRepository;
 
 
 import java.util.List;
@@ -21,21 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Client")
-public class ClientController {
+@RequestMapping("/api/Category")
+public class CategoryController {
     
     @Autowired
-    IClientRepository repository;
+    ICategoryRepository repository;
     
     @GetMapping("/all")
-    public Iterable<Client> getClient(){
-        Iterable<Client> response = repository.findAll();
+    public Iterable<Category> getCategories(){
+        Iterable<Category> response = repository.findAll();
         
         return response;
     }
     
     @PostMapping("/save")
-    public String createClient(@RequestBody Client request){
+    public String createCategory(@RequestBody Category request){
         
         repository.save(request);
         

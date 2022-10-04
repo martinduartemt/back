@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.controller;
+package com.grupo10.app.rents.controller;
 
-import com.model.Client;
-import com.model.IClientRepository;
-import com.model.IQuadbikeRepository;
-import com.model.IReservationRepository;
-import com.model.Quadbike;
-import com.model.Reservation;
+import com.grupo10.app.rents.model.Client;
+import com.grupo10.app.rents.model.IClientRepository;
+import com.grupo10.app.rents.model.IMessageRepository;
+import com.grupo10.app.rents.model.IQuadbikeRepository;
+import com.grupo10.app.rents.model.Message;
+import com.grupo10.app.rents.model.Quadbike;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,32 +24,30 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Reservation")
-public class ReservationController {
+@RequestMapping("/api/Message")
+public class MessageController {
 
     @Autowired
-    IReservationRepository repository;
+    IMessageRepository repository;
     @Autowired
     IQuadbikeRepository quadbikeRepository;
     @Autowired
     IClientRepository clientRepository;
 
     @GetMapping("/all")
-    public Iterable<Reservation> getReservation() {
-
-        Iterable<Reservation> response = repository.findAll();
+    public Iterable<Message> getMessages() {
+        Iterable<Message> response = repository.findAll();
 
         return response;
     }
 
     @PostMapping("/save")
-    public String createReservation(@RequestBody Reservation request) {
+    public String createMessage(@RequestBody Message request) {
 
-    Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
+        Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
         if (!quad.isEmpty()) {
             request.setQuadbike(quad.get());
         }
-        
 
         Optional<Client> cli;
         cli = clientRepository.findById(request.getClient().getIdClient());
@@ -58,7 +56,7 @@ public class ReservationController {
 
         }
         repository.save(request);
-        
+         
         return "crated....";
 
     }

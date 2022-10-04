@@ -2,12 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package com.grupo10.app.rents.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,41 +25,32 @@ import lombok.Setter;
  * @author Andres
  */
 @Entity
-@Table(name="tb_reservation")
+@Table(name="tb_message")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reservation implements Serializable {
+public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name="idReservation")    
-    private Integer idReservation;
-    @Column
-    
-    private Timestamp startDate;
+    @Column(name="id")    
+    private Integer idMessage;
     
     @Column
-    private Timestamp devolutionDate;
-    
-    @Column
-    private String status;
+    private String messageText;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quadbike_id")
-    @JsonIgnoreProperties({"messages","reservations"})
+    @JsonIgnoreProperties({"reservation","messages"})
     private Quadbike quadbike;
+    
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"messages","reservations","client"})
+    @JsonIgnoreProperties({"reservation","messages"})
     private Client client;
     
-    @Column
-    private String score;   
     
-
- 
 
     
 }

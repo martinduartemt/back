@@ -2,11 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package com.grupo10.app.rents.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.util.List;
+import java.sql.Date;
+import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +16,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,39 +27,38 @@ import lombok.Setter;
  * @author Andres
  */
 @Entity
-@Table(name="tb_quadbike")
+@Table(name="tb_reservation")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quadbike implements Serializable {
+public class Reservation implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name="id")    
-    private Integer id;
+    @Column(name="idReservation")    
+    private Integer idReservation;
+    @Column
+    
+    private Timestamp startDate;
     
     @Column
-    private String name;
-    @Column
-    private String brand;
-    @Column
-    private Integer year;
-    @Column
-    private String description;
+    private Timestamp devolutionDate;
     
+    @Column
+    private String status;
     
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id")
-    @JsonIgnoreProperties({"quadbikes"})
-    private Category category;
+    @JoinColumn(name = "quadbike_id")
+    @JsonIgnoreProperties({"messages","reservations"})
+    private Quadbike quadbike;
     
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "quadbike")
-    @JsonIgnoreProperties({"quadbike"})
-    private List<Message>messages;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties({"messages","reservations","client"})
+    private Client client;
     
-    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "quadbike")
-    @JsonIgnoreProperties({"quadbike"})          
-    private List<Reservation> reservations;
+    @Column
+    private String score;   
     
 
  

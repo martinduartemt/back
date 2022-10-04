@@ -2,10 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.model;
+package com.grupo10.app.rents.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,32 +27,38 @@ import lombok.Setter;
  * @author Andres
  */
 @Entity
-@Table(name="tb_message")
+@Table(name="tb_client")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message implements Serializable {
+public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy =GenerationType.IDENTITY)
-    @Column(name="id")    
-    private Integer idMessage;
+    @Column(name="idClient")    
+    private Integer idClient;
     
     @Column
-    private String messageText;
+    private String name;
+    @Column
+    private String email;
+    @Column
+    private String password;
+    @Column
+    private Integer age;
+
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "quadbike_id")
-    @JsonIgnoreProperties({"reservations","messages"})
-    private Quadbike quadbike;
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
+    @JsonIgnoreProperties({"client"})
+    private List<Message> messages;
+    
+    @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "client")
+    @JsonIgnoreProperties({"client"})
+    private List<Reservation> reservations;
     
     
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"reservations","messages"})
-    private Client client;
-    
-    
+
+ 
 
     
 }
