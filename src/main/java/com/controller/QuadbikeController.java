@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.grupo10.app.rents.controller;
+package com.controller;
 
-import com.grupo10.app.rents.model.Client;
-import com.grupo10.app.rents.model.IClientRepository;
-
-
+import com.model.Category;
+import com.model.ICategoryRepository;
+import com.model.IQuadbikeRepository;
+import com.model.Quadbike;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,22 +22,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Client")
-public class ClientController {
+@RequestMapping("/api/Quadbike")
+public class QuadbikeController {
     
     @Autowired
-    IClientRepository repository;
+    IQuadbikeRepository repository;
+    @Autowired
+    ICategoryRepository categoryRepository;
     
     @GetMapping("/all")
-    public Iterable<Client> getClient(){
-        Iterable<Client> response = repository.findAll();
+    public Iterable<Quadbike> getQuadbikes(){
+        
+        Iterable<Quadbike> response = repository.findAll();
         
         return response;
     }
     
     @PostMapping("/save")
-    public String createClient(@RequestBody Client request){
+    public String createQuadbike(@RequestBody Quadbike request){
         
+        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
+        if(!cat.isEmpty()){
+            request.setCategory(cat.get());
+        }
         repository.save(request);
         
         return "crated....";

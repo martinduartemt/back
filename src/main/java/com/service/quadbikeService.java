@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package com.service;
 
-import com.grupo10.app.rents.model.Category;
-import com.grupo10.app.rents.model.ICategoryRepository;
-import com.grupo10.app.rents.model.IQuadbikeRepository;
-import com.grupo10.app.rents.model.Quadbike;
+import com.model.Category;
+import com.model.Category;
+import com.model.ICategoryRepository;
+import com.model.ICategoryRepository;
+import com.model.IQuadbikeRepository;
+import com.model.IQuadbikeRepository;
+import com.model.Quadbike;
+import com.model.Quadbike;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
