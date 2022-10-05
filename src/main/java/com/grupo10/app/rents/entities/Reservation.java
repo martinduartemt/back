@@ -49,7 +49,7 @@ public class Reservation implements Serializable {
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quadbike_id")
-    @JsonIgnoreProperties({"messages","reservations"})
+    @JsonIgnoreProperties({"reservations"})
     private Quadbike quadbike;
     
     @ManyToOne(cascade = CascadeType.ALL)
