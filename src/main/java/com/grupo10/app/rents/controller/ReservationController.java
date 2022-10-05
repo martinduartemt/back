@@ -33,7 +33,7 @@ public class ReservationController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createReservation(@RequestBody Reservation request) {
 
         service.create(request);

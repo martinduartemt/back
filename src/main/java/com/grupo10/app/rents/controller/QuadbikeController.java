@@ -33,7 +33,7 @@ public class QuadbikeController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createQuadbike(@RequestBody Quadbike request) {
 
         service.create(request);

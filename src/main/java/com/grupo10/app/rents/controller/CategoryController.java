@@ -43,7 +43,7 @@ public class CategoryController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createCategory(@RequestBody Category request) {
 
         service.create(request);

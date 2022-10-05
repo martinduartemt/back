@@ -33,7 +33,7 @@ public class ClientController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createClient(@RequestBody Client request) {
 
         service.create(request);

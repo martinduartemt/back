@@ -33,7 +33,7 @@ public class MessageController {
     }
 
     @PostMapping("/save")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void createMessage(@RequestBody Message request) {
 
         service.create(request);
