@@ -8,9 +8,9 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -30,6 +30,13 @@ public class CategoryService {
         return response;
     }
     
+    public Optional<Category> get(Integer id) {
+
+        Optional<Category> response = repository.findById(id);
+        return response;
+
+    }
+
 
     public String create(@RequestBody Category request){
         
@@ -37,7 +44,28 @@ public class CategoryService {
         
         return "crated....";
     }
+    
+    public Category update(Category category) {
+        
+        Category categoryToUpdate = new Category();
+                
+        if (repository.existsById(category.getId())){
+            categoryToUpdate = category;
+            repository.save(categoryToUpdate);
+        }
+        
+        return categoryToUpdate;
 
+    }
+    
+    public Boolean delete(Integer id) {
+        
+        repository.deleteById(id);
+        boolean deleted = true;
+        
+        return deleted;
+
+    }
 
     
     
