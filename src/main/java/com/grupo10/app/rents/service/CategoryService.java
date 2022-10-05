@@ -5,7 +5,6 @@
  */
 package com.grupo10.app.rents.service;
 
-
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import java.util.Optional;
@@ -22,14 +21,13 @@ public class CategoryService {
 
     @Autowired
     ICategoryRepository repository;
-    
 
-    public Iterable<Category> get(){
+    public Iterable<Category> get() {
         Iterable<Category> response = repository.findAll();
-        
+
         return response;
     }
-    
+
     public Optional<Category> get(Integer id) {
 
         Optional<Category> response = repository.findById(id);
@@ -37,36 +35,31 @@ public class CategoryService {
 
     }
 
+    public Category create(@RequestBody Category request) {
 
-    public String create(@RequestBody Category request){
-        
-        repository.save(request);
-        
-        return "crated....";
+        return repository.save(request);
     }
-    
+
     public Category update(Category category) {
-        
+
         Category categoryToUpdate = new Category();
-                
-        if (repository.existsById(category.getId())){
+
+        if (repository.existsById(category.getId())) {
             categoryToUpdate = category;
             repository.save(categoryToUpdate);
         }
-        
+
         return categoryToUpdate;
 
     }
-    
+
     public Boolean delete(Integer id) {
-        
+
         repository.deleteById(id);
         boolean deleted = true;
-        
+
         return deleted;
 
     }
 
-    
-    
 }

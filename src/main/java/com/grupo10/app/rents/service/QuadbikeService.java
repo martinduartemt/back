@@ -5,7 +5,6 @@
  */
 package com.grupo10.app.rents.service;
 
-
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
@@ -34,20 +33,12 @@ public class QuadbikeService {
 
     }
 
-    public String create(Quadbike request){
+    public Quadbike create(Quadbike request) {
 
         Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
 
-        if(!cat.isEmpty()) {
-            request.setCategory(cat.get());
-        }
-        if (request.getName() != null)  {
-            reposytory.save(request);
-            return  "created...";
-        } else {
-            return "falta el nombre";
-        }
-    }
+        return reposytory.save(request);
 
+    }
 
 }
