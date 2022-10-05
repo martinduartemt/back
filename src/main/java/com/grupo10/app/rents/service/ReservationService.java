@@ -5,7 +5,6 @@
  */
 package com.grupo10.app.rents.service;
 
-
 import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Quadbike;
@@ -15,8 +14,6 @@ import com.grupo10.app.rents.interfaces.IReservationRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -33,7 +30,6 @@ public class ReservationService {
     @Autowired
     IClientRepository clientRepository;
 
-    @GetMapping("/all")
     public Iterable<Reservation> get() {
 
         Iterable<Reservation> response = repository.findAll();
@@ -41,14 +37,12 @@ public class ReservationService {
         return response;
     }
 
-    @PostMapping("/save")
-    public String create(@RequestBody Reservation request) {
+    public Reservation create(@RequestBody Reservation request) {
 
-    Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
+        Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
         if (!quad.isEmpty()) {
             request.setQuadbike(quad.get());
         }
-        
 
         Optional<Client> cli;
         cli = clientRepository.findById(request.getClient().getIdClient());
@@ -56,9 +50,8 @@ public class ReservationService {
             request.setClient(cli.get());
 
         }
-        repository.save(request);
-        
-        return "crated....";
+
+        return repository.save(request);
 
     }
 

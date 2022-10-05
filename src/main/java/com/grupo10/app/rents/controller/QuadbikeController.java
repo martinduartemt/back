@@ -7,10 +7,12 @@ package com.grupo10.app.rents.controller;
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.service.QuadbikeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,27 +22,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/Quadbike")
 public class QuadbikeController {
-    
-    
+
     @Autowired
     QuadbikeService service;
-    
+
     @GetMapping("/all")
-    public Iterable<Quadbike> get(){
-        
-       
-        
+    public Iterable<Quadbike> get() {
+
         return service.get();
     }
-    
+
     @PostMapping("/save")
-    public String createQuadbike(@RequestBody Quadbike request){
-        
-        
-        return service.create(request);
+    @ResponseStatus(HttpStatus.OK)
+    public void createQuadbike(@RequestBody Quadbike request) {
+
+        service.create(request);
     }
 
-
-    
-    
 }

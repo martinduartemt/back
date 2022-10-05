@@ -10,8 +10,6 @@ import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.interfaces.IClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -24,19 +22,17 @@ public class ClientService {
     @Autowired
     IClientRepository repository;
     
-    @GetMapping("/all")
+    
     public Iterable<Client> get(){
         Iterable<Client> response = repository.findAll();
         
         return response;
     }
     
-    @PostMapping("/save")
-    public String create(@RequestBody Client request){
-        
-        repository.save(request);
-        
-        return "crated....";
+    
+    public Client create(@RequestBody Client request){
+                
+        return repository.save(request);
     }
 
 
