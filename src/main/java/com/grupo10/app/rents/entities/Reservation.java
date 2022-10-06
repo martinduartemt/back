@@ -45,7 +45,7 @@ public class Reservation implements Serializable {
     private Timestamp devolutionDate;
     
     @Column
-    private String status;
+    private String status="created";
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "quadbike_id")
