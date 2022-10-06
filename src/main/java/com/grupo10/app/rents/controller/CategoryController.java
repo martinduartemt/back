@@ -33,33 +33,33 @@ public class CategoryController {
     @GetMapping("/all")
     public Iterable<Category> get() {
 
-        return service.get();
+        return service.getCategory();
     }
 
     @GetMapping("/{id}")
     public Optional<Category> get(@PathVariable("id") Integer id) {
 
-        return service.get(id);
+        return service.getCategory(id);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCategory(@RequestBody Category request) {
+    public void create(@RequestBody Category request) {
 
-        service.create(request);
+        service.createCategory(request);
 
     }
 
     @PutMapping("/update")
     public Category update(@RequestBody Category request) {
 
-        return service.update(request);
+        return service.updateCategory(request);
     }
 
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable("id") Integer id) {
 
-        return service.delete(id);
+        return service.deleteCategory(id);
     }
 
 }

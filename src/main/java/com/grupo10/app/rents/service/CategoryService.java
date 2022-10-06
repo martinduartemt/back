@@ -22,25 +22,25 @@ public class CategoryService {
     @Autowired
     ICategoryRepository repository;
 
-    public Iterable<Category> get() {
+    public Iterable<Category> getCategory() {
         Iterable<Category> response = repository.findAll();
 
         return response;
     }
 
-    public Optional<Category> get(Integer id) {
+    public Optional<Category> getCategory(Integer id) {
 
         Optional<Category> response = repository.findById(id);
         return response;
 
     }
 
-    public Category create(@RequestBody Category request) {
+    public Category createCategory(@RequestBody Category request) {
 
         return repository.save(request);
     }
 
-    public Category update(Category category) {
+    public Category updateCategory(Category category) {
 
         Category categoryToUpdate = new Category();
 
@@ -53,7 +53,7 @@ public class CategoryService {
 
     }
 
-    public Boolean delete(Integer id) {
+    public Boolean deleteCategory(Integer id) {
 
         repository.deleteById(id);
         boolean deleted = true;

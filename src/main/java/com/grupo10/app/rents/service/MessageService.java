@@ -30,13 +30,20 @@ public class MessageService {
     @Autowired
     IClientRepository clientRepository;
 
-    public Iterable<Message> get() {
+    public Iterable<Message> getMessage() {
         Iterable<Message> response = repository.findAll();
 
         return response;
     }
+    
+    public Optional<Message> getMessage(Integer id) {
 
-    public Message create(@RequestBody Message request) {
+        Optional<Message> response = repository.findById(id);
+        return response;
+
+    }
+
+    public Message createMessage(@RequestBody Message request) {
 
         Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
         if (!quad.isEmpty()) {
