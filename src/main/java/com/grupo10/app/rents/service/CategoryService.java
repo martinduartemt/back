@@ -7,6 +7,7 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.repository.CategoryRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,16 @@ public class CategoryService {
         return response;
 
     }
+    /*
+    ejemplo de reporte
+    public List<Category[]> getReportCategory() {
+        
+        
 
+        return repository.CategoryReport();
+
+    }*/
+    
     public Category createCategory(@RequestBody Category request) {
 
         return repository.saveCategory(request);

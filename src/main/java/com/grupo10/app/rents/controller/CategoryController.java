@@ -6,6 +6,7 @@ package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.service.CategoryService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Category/")
+@RequestMapping("/api/Category")
 public class CategoryController {
 
     @Autowired
@@ -41,6 +42,12 @@ public class CategoryController {
 
         return service.getCategory(id);
     }
+    /* ejemplo de reporte
+    @GetMapping("/reports/{id}")
+    public List<Category> getReport(@PathVariable("id") Integer id) {
+
+        return service.getReportCategory();
+    }*/
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)

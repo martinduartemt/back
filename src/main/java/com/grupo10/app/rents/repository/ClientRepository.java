@@ -9,11 +9,13 @@ import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.interfaces.IClientRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author martinduarteflorez
  */
+@Repository
 public class ClientRepository {
 
     @Autowired

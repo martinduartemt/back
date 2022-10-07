@@ -7,13 +7,16 @@ package com.grupo10.app.rents.repository;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author martinduarteflorez
  */
+@Repository
 public class CategoryRepository {
 
     @Autowired
@@ -43,5 +46,9 @@ public class CategoryRepository {
 
         Repository.deleteById(id);
     }
-
+    /* ejemplode reporte
+    public List<Category[]> CategoryReport(){
+        return Repository.countTotalCategoryByYear();
+    }
+    */
 }

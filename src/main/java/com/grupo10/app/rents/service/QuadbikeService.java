@@ -9,6 +9,8 @@ import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.repository.QuadbikeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,14 @@ public class QuadbikeService {
         Optional<Quadbike> response = repository.findQuadbikeById(id);
         return response;
 
+    }
+
+    public List<Object[]> getReportQuadbike() {
+
+        List<Quadbike> response = new ArrayList<>();
+        List<Object[]> result = repository.quadbikeReport();
+
+        return result;
     }
 
     public Quadbike createQuadbike(Quadbike request) {

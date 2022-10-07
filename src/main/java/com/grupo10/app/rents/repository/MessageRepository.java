@@ -9,11 +9,13 @@ import com.grupo10.app.rents.entities.Message;
 import com.grupo10.app.rents.interfaces.IMessageRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author martinduarteflorez
  */
+@Repository
 public class MessageRepository {
 
     @Autowired

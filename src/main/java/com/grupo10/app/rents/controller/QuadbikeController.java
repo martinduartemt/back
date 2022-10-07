@@ -6,6 +6,7 @@ package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.service.QuadbikeService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,12 @@ public class QuadbikeController {
 
         return service.getQuadbike(id);
     }
+    
+    @GetMapping("/reports/year")
+    public List<Object[]> getReport() {
+
+        return service.getReportQuadbike();
+    }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
@@ -55,7 +62,7 @@ public class QuadbikeController {
         return service.updateQuadbike(request);
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public Boolean delete(@PathVariable("id") Integer id) {
 
         return service.deleteQuadbike(id);

@@ -7,13 +7,16 @@ package com.grupo10.app.rents.repository;
 
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author martinduarteflorez
  */
+@Repository
 public class QuadbikeRepository {
 
     @Autowired
@@ -27,6 +30,10 @@ public class QuadbikeRepository {
     public Optional<Quadbike> findQuadbikeById(Integer id) {
         Optional<Quadbike> response = Repository.findById(id);
         return response;
+    }
+    
+    public List<Object[]> quadbikeReport(){
+        return Repository.countTotalQuadbikeByYear();
     }
 
     public Quadbike saveQuadbike(Quadbike quadbike) {
