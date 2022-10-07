@@ -7,8 +7,8 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.repository.QuadbikeRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,21 +21,21 @@ import org.springframework.stereotype.Service;
 public class QuadbikeService {
 
     @Autowired
-    IQuadbikeRepository repository;
+    QuadbikeRepository repository;
 
     @Autowired
     ICategoryRepository categoryRepository;
 
     public Iterable<Quadbike> getQuadbike() {
 
-        Iterable<Quadbike> response = repository.findAll();
+        Iterable<Quadbike> response = repository.findAllQuadbikes();
         return response;
 
     }
 
     public Optional<Quadbike> getQuadbike(Integer id) {
 
-        Optional<Quadbike> response = repository.findById(id);
+        Optional<Quadbike> response = repository.findQuadbikeById(id);
         return response;
 
     }
@@ -47,7 +47,7 @@ public class QuadbikeService {
         if (!cat.isEmpty()) {
             request.setCategory(cat.get());
         }
-        return repository.save(request);
+        return repository.saveQuadbike(request);
 
     }
 
@@ -55,19 +55,19 @@ public class QuadbikeService {
 
         Quadbike quadbikeToUpdate = new Quadbike();
 
-        if (repository.existsById(quadbike.getId())) {
+        if (repository.existQuadbikeById(quadbike.getId())) {
             quadbikeToUpdate = quadbike;
-            repository.save(quadbikeToUpdate);
+            repository.saveQuadbike(quadbikeToUpdate);
         }
 
         return quadbikeToUpdate;
 
     }
-    
+
     public Boolean deleteQuadbike(Integer id) {
 
-        repository.deleteById(id);
-        boolean deleted = true;
+        repository.deleteQuadbikeById(id);
+        Boolean deleted = true;
 
         return deleted;
 

@@ -6,7 +6,7 @@
 package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
-import com.grupo10.app.rents.interfaces.ICategoryRepository;
+import com.grupo10.app.rents.repository.CategoryRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,33 +20,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CategoryService {
 
     @Autowired
-    ICategoryRepository repository;
+    CategoryRepository repository;
 
     public Iterable<Category> getCategory() {
-        Iterable<Category> response = repository.findAll();
+        Iterable<Category> response = repository.getCategoryAll();
 
         return response;
     }
 
     public Optional<Category> getCategory(Integer id) {
 
-        Optional<Category> response = repository.findById(id);
+        Optional<Category> response = repository.findCategoryById(id);
         return response;
 
     }
 
     public Category createCategory(@RequestBody Category request) {
 
-        return repository.save(request);
+        return repository.saveCategory(request);
     }
 
     public Category updateCategory(Category category) {
 
         Category categoryToUpdate = new Category();
 
-        if (repository.existsById(category.getId())) {
+        if (repository.existCategoryById(category.getId())) {
             categoryToUpdate = category;
-            repository.save(categoryToUpdate);
+            repository.saveCategory(categoryToUpdate);
         }
 
         return categoryToUpdate;
@@ -55,7 +55,7 @@ public class CategoryService {
 
     public Boolean deleteCategory(Integer id) {
 
-        repository.deleteById(id);
+        repository.deleteCategoryById(id);
         boolean deleted = true;
 
         return deleted;

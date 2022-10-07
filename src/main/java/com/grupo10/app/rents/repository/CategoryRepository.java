@@ -5,8 +5,8 @@
  */
 package com.grupo10.app.rents.repository;
 
-import com.grupo10.app.rents.entities.Quadbike;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
+import com.grupo10.app.rents.entities.Category;
+import com.grupo10.app.rents.interfaces.ICategoryRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,32 +14,32 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author martinduarteflorez
  */
-public class QuadbikeRepository {
+public class CategoryRepository {
 
     @Autowired
-    IQuadbikeRepository Repository;
+    ICategoryRepository Repository;
 
-    public Iterable<Quadbike> findAllQuadbikes() {
+    public Iterable<Category> getCategoryAll() {
 
         return Repository.findAll();
     }
 
-    public Optional<Quadbike> findQuadbikeById(Integer id) {
-        Optional<Quadbike> response = Repository.findById(id);
+    public Optional<Category> findCategoryById(Integer id) {
+        Optional<Category> response = Repository.findById(id);
         return response;
     }
 
-    public Quadbike saveQuadbike(Quadbike quadbike) {
+    public Category saveCategory(Category category) {
 
-        return Repository.save(quadbike);
+        return Repository.save(category);
     }
 
-    public Boolean existQuadbikeById(Integer id) {
+    public Boolean existCategoryById(Integer id) {
 
         return Repository.existsById(id);
     }
 
-    public void deleteQuadbikeById(Integer id) {
+    public void deleteCategoryById(Integer id) {
 
         Repository.deleteById(id);
     }

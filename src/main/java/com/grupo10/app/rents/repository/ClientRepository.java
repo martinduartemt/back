@@ -5,8 +5,8 @@
  */
 package com.grupo10.app.rents.repository;
 
-import com.grupo10.app.rents.entities.Quadbike;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
+import com.grupo10.app.rents.entities.Client;
+import com.grupo10.app.rents.interfaces.IClientRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,32 +14,32 @@ import org.springframework.beans.factory.annotation.Autowired;
  *
  * @author martinduarteflorez
  */
-public class QuadbikeRepository {
+public class ClientRepository {
 
     @Autowired
-    IQuadbikeRepository Repository;
+    IClientRepository Repository;
 
-    public Iterable<Quadbike> findAllQuadbikes() {
+    public Iterable<Client> findAllCLients() {
 
         return Repository.findAll();
     }
 
-    public Optional<Quadbike> findQuadbikeById(Integer id) {
-        Optional<Quadbike> response = Repository.findById(id);
+    public Optional<Client> findClientById(Integer id) {
+        Optional<Client> response = Repository.findById(id);
         return response;
     }
 
-    public Quadbike saveQuadbike(Quadbike quadbike) {
+    public Client saveClient(Client client) {
 
-        return Repository.save(quadbike);
+        return Repository.save(client);
     }
 
-    public Boolean existQuadbikeById(Integer id) {
+    public Boolean existClientById(Integer id) {
 
         return Repository.existsById(id);
     }
 
-    public void deleteQuadbikeById(Integer id) {
+    public void deleteClientById(Integer id) {
 
         Repository.deleteById(id);
     }

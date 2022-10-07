@@ -7,10 +7,10 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.entities.Message;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Quadbike;
-import com.grupo10.app.rents.interfaces.IClientRepository;
-import com.grupo10.app.rents.interfaces.IMessageRepository;
+import com.grupo10.app.rents.repository.ClientRepository;
+import com.grupo10.app.rents.repository.MessageRepository;
+import com.grupo10.app.rents.repository.QuadbikeRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,40 +24,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MessageService {
 
     @Autowired
-    IMessageRepository repository;
+    MessageRepository repository;
     @Autowired
-    IQuadbikeRepository quadbikeRepository;
+    QuadbikeRepository quadbikeRepository;
     @Autowired
-    IClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     public Iterable<Message> getMessage() {
-        Iterable<Message> response = repository.findAll();
+        Iterable<Message> response = repository.getAllMessages();
 
         return response;
     }
     
     public Optional<Message> getMessage(Integer id) {
 
-        Optional<Message> response = repository.findById(id);
+        Optional<Message> response = repository.findMessageById(id);
         return response;
 
     }
 
     public Message createMessage(@RequestBody Message request) {
 
-        Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
+        Optional<Quadbike> quad = quadbikeRepository.findQuadbikeById(request.getQuadbike().getId());
         if (!quad.isEmpty()) {
             request.setQuadbike(quad.get());
         }
 
         Optional<Client> cli;
-        cli = clientRepository.findById(request.getClient().getIdClient());
+        cli = clientRepository.findClientById(request.getClient().getIdClient());
         if (!cli.isEmpty()) {
             request.setClient(cli.get());
 
         }
 
-        return repository.save(request);
+        return repository.saveMessage(request);
+        }
+        public Message updateMessage(Message message) {
+
+        Message messageToUpdate = new Message();
+
+        if (repository.existMessageById(message.getIdMessage())) {
+            messageToUpdate = message;
+            repository.saveMessage(messageToUpdate);
+        }
+
+        return messageToUpdate;
 
     }
+     
+
 }
+
