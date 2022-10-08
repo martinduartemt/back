@@ -7,7 +7,6 @@ package com.grupo10.app.rents.service;
 
 
 import com.grupo10.app.rents.entities.Client;
-import com.grupo10.app.rents.interfaces.IClientRepository;
 import com.grupo10.app.rents.repository.ClientRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;

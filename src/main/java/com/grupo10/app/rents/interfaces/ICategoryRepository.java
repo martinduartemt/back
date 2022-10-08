@@ -5,8 +5,6 @@
 package com.grupo10.app.rents.interfaces;
 
 import com.grupo10.app.rents.entities.Category;
-import java.util.List;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 /**
