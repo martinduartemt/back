@@ -6,7 +6,6 @@ package com.grupo10.app.rents.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
