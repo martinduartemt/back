@@ -12,5 +12,9 @@ import org.springframework.data.repository.CrudRepository;
  * @author Andres
  */
 public interface ICategoryRepository extends CrudRepository<Category, Integer> {
-    
+    /* ejemplo de reporte
+    @Query("SELECT c.year, COUNT(c.year) from tb_category AS c group by c.year order by COUNT(c.year) DESC")
+    public List<Category[]> countTotalCategoryByYear();
+    */
+
 }

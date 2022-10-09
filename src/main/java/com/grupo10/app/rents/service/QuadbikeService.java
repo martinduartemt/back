@@ -7,8 +7,10 @@ package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
 import com.grupo10.app.rents.interfaces.ICategoryRepository;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Quadbike;
+import com.grupo10.app.rents.repository.QuadbikeRepository;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,26 +23,63 @@ import org.springframework.stereotype.Service;
 public class QuadbikeService {
 
     @Autowired
-    IQuadbikeRepository reposytory;
+    QuadbikeRepository repository;
 
     @Autowired
     ICategoryRepository categoryRepository;
 
-    public Iterable<Quadbike> get() {
+    public Iterable<Quadbike> getQuadbike() {
 
-        Iterable<Quadbike> response = reposytory.findAll();
+        Iterable<Quadbike> response = repository.findAllQuadbikes();
         return response;
 
     }
 
-    public Quadbike create(Quadbike request) {
+    public Optional<Quadbike> getQuadbike(Integer id) {
+
+        Optional<Quadbike> response = repository.findQuadbikeById(id);
+        return response;
+
+    }
+
+    public List<Object[]> getReportQuadbike() {
+
+        List<Quadbike> response = new ArrayList<>();
+        List<Object[]> result = repository.quadbikeReport();
+
+        return result;
+    }
+
+    public Quadbike createQuadbike(Quadbike request) {
 
         Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-        
+
         if (!cat.isEmpty()) {
             request.setCategory(cat.get());
         }
-        return reposytory.save(request);
+        return repository.saveQuadbike(request);
+
+    }
+
+    public Quadbike updateQuadbike(Quadbike quadbike) {
+
+        Quadbike quadbikeToUpdate = new Quadbike();
+
+        if (repository.existQuadbikeById(quadbike.getId())) {
+            quadbikeToUpdate = quadbike;
+            repository.saveQuadbike(quadbikeToUpdate);
+        }
+
+        return quadbikeToUpdate;
+
+    }
+
+    public Boolean deleteQuadbike(Integer id) {
+
+        repository.deleteQuadbikeById(id);
+        Boolean deleted = true;
+
+        return deleted;
 
     }
 

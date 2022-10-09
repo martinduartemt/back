@@ -6,10 +6,14 @@ package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.service.ClientService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,13 +33,30 @@ public class ClientController {
     @GetMapping("/all")
     public Iterable<Client> get() {
 
-        return service.get();
+        return service.getClient();
+    }
+    @GetMapping("/{id}")
+    public Optional<Client> get(@PathVariable("id") Integer id) {
+
+        return service.getClient(id);
     }
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createClient(@RequestBody Client request) {
+    public void create(@RequestBody Client request) {
 
-        service.create(request);
+        service.createClient(request);
+    }
+    
+    @PutMapping("/update")
+    public Client update(@RequestBody Client request) {
+
+        return service.updateCLient(request);
+    }
+    
+    @DeleteMapping("/{id}")
+    public Boolean delete(@PathVariable("id") Integer id) {
+
+        return service.deleteClient(id);
     }
 }

@@ -7,7 +7,8 @@ package com.grupo10.app.rents.service;
 
 
 import com.grupo10.app.rents.entities.Client;
-import com.grupo10.app.rents.interfaces.IClientRepository;
+import com.grupo10.app.rents.repository.ClientRepository;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,22 +21,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ClientService {
 
     @Autowired
-    IClientRepository repository;
+    ClientRepository repository;
     
     
-    public Iterable<Client> get(){
-        Iterable<Client> response = repository.findAll();
+    public Iterable<Client> getClient(){
+        Iterable<Client> response = repository.findAllCLients();
         
         return response;
     }
     
-    
-    public Client create(@RequestBody Client request){
-                
-        return repository.save(request);
+    public Optional<Client> getClient(Integer id) {
+
+        Optional<Client> response = repository.findClientById(id);
+        return response;
+
     }
-
-
     
+    
+    public Client createClient(@RequestBody Client request){
+                
+        return repository.saveClient(request);
+    }
+    
+    public Client updateCLient(Client client) {
+
+        Client clientToUpdate = new Client();
+
+        if (repository.existClientById(client.getIdClient())) {
+            clientToUpdate = client;
+            repository.saveClient(clientToUpdate);
+        }
+
+        return clientToUpdate;
+
+
+    }
+    public Boolean deleteClient(Integer id) {
+
+        repository.deleteClientById(id);
+        boolean deleted = true;
+
+        return deleted;
+
+    }
     
 }

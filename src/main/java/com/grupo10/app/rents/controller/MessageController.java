@@ -6,10 +6,13 @@ package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.entities.Message;
 import com.grupo10.app.rents.service.MessageService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,14 +32,27 @@ public class MessageController {
     @GetMapping("/all")
     public Iterable<Message> get() {
 
-        return service.get();
+        return service.getMessage();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Message> get(@PathVariable("id") Integer id) {
+
+        return service.getMessage(id);
+    }
+    
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMessage(@RequestBody Message request) {
+    public void create(@RequestBody Message request) {
 
-        service.create(request);
+        service.createMessage(request);
     }
+    
+    @PutMapping("/update")
+    public Message update(@RequestBody Message request) {
 
+        return service.updateMessage(request);
+    }
+    
+   
 }

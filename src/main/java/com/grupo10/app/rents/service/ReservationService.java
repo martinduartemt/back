@@ -6,11 +6,11 @@
 package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Client;
-import com.grupo10.app.rents.interfaces.IQuadbikeRepository;
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.entities.Reservation;
-import com.grupo10.app.rents.interfaces.IClientRepository;
-import com.grupo10.app.rents.interfaces.IReservationRepository;
+import com.grupo10.app.rents.repository.ClientRepository;
+import com.grupo10.app.rents.repository.QuadbikeRepository;
+import com.grupo10.app.rents.repository.ReservationRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,35 +24,56 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class ReservationService {
 
     @Autowired
-    IReservationRepository repository;
+    ReservationRepository repository;
     @Autowired
-    IQuadbikeRepository quadbikeRepository;
+    QuadbikeRepository quadbikeRepository;
     @Autowired
-    IClientRepository clientRepository;
+    ClientRepository clientRepository;
 
-    public Iterable<Reservation> get() {
+    public Iterable<Reservation> getReservation() {
 
-        Iterable<Reservation> response = repository.findAll();
+        Iterable<Reservation> response = repository.findAllReservation();
 
         return response;
     }
+    
+    public Optional<Reservation> getReservation(Integer id) {
 
-    public Reservation create(@RequestBody Reservation request) {
+        Optional<Reservation> response = repository.findReservationById(id);
+        return response;
 
-        Optional<Quadbike> quad = quadbikeRepository.findById(request.getQuadbike().getId());
+    }
+
+    public Reservation createReservation(@RequestBody Reservation request) {
+
+        Optional<Quadbike> quad = quadbikeRepository.findQuadbikeById(request.getQuadbike().getId());
         if (!quad.isEmpty()) {
             request.setQuadbike(quad.get());
         }
 
         Optional<Client> cli;
-        cli = clientRepository.findById(request.getClient().getIdClient());
+        cli = clientRepository.findClientById(request.getClient().getIdClient());
         if (!cli.isEmpty()) {
             request.setClient(cli.get());
 
         }
 
-        return repository.save(request);
+        return repository.saveReservation(request);
+
+    }
+    
+    public Reservation updateReservation(Reservation reservation) {
+
+        Reservation reservationToUpdate = new Reservation();
+
+        if (repository.existReservationById(reservation.getIdReservation())) {
+            reservationToUpdate = reservation;
+            repository.saveReservation(reservationToUpdate);
+        }
+
+        return reservationToUpdate;
 
     }
 
+    
 }

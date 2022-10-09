@@ -6,7 +6,7 @@
 package com.grupo10.app.rents.service;
 
 import com.grupo10.app.rents.entities.Category;
-import com.grupo10.app.rents.interfaces.ICategoryRepository;
+import com.grupo10.app.rents.repository.CategoryRepository;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,42 +20,51 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class CategoryService {
 
     @Autowired
-    ICategoryRepository repository;
+    CategoryRepository repository;
 
-    public Iterable<Category> get() {
-        Iterable<Category> response = repository.findAll();
+    public Iterable<Category> getCategory() {
+        Iterable<Category> response = repository.getCategoryAll();
 
         return response;
     }
 
-    public Optional<Category> get(Integer id) {
+    public Optional<Category> getCategory(Integer id) {
 
-        Optional<Category> response = repository.findById(id);
+        Optional<Category> response = repository.findCategoryById(id);
         return response;
 
     }
+    /*
+    ejemplo de reporte
+    public List<Category[]> getReportCategory() {
+        
+        
 
-    public Category create(@RequestBody Category request) {
+        return repository.CategoryReport();
 
-        return repository.save(request);
+    }*/
+    
+    public Category createCategory(@RequestBody Category request) {
+
+        return repository.saveCategory(request);
     }
 
-    public Category update(Category category) {
+    public Category updateCategory(Category category) {
 
         Category categoryToUpdate = new Category();
 
-        if (repository.existsById(category.getId())) {
+        if (repository.existCategoryById(category.getId())) {
             categoryToUpdate = category;
-            repository.save(categoryToUpdate);
+            repository.saveCategory(categoryToUpdate);
         }
 
         return categoryToUpdate;
 
     }
 
-    public Boolean delete(Integer id) {
+    public Boolean deleteCategory(Integer id) {
 
-        repository.deleteById(id);
+        repository.deleteCategoryById(id);
         boolean deleted = true;
 
         return deleted;

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Andres
  */
 @RestController
-@RequestMapping("/api/Category/")
+@RequestMapping("/api/Category")
 public class CategoryController {
 
     @Autowired
@@ -33,33 +33,39 @@ public class CategoryController {
     @GetMapping("/all")
     public Iterable<Category> get() {
 
-        return service.get();
+        return service.getCategory();
     }
 
     @GetMapping("/{id}")
     public Optional<Category> get(@PathVariable("id") Integer id) {
 
-        return service.get(id);
+        return service.getCategory(id);
     }
+    /* ejemplo de reporte
+    @GetMapping("/reports/{id}")
+    public List<Category> getReport(@PathVariable("id") Integer id) {
+
+        return service.getReportCategory();
+    }*/
 
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCategory(@RequestBody Category request) {
+    public void create(@RequestBody Category request) {
 
-        service.create(request);
+        service.createCategory(request);
 
     }
 
     @PutMapping("/update")
     public Category update(@RequestBody Category request) {
 
-        return service.update(request);
+        return service.updateCategory(request);
     }
 
     @DeleteMapping("/{id}")
     public Boolean delete(@PathVariable("id") Integer id) {
 
-        return service.delete(id);
+        return service.deleteCategory(id);
     }
 
 }
