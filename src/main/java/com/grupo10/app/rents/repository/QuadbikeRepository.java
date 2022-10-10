@@ -46,7 +46,7 @@ public class QuadbikeRepository {
         return Repository.existsById(id);
     }
 
-    public void deleteQuadbikeById(Integer id) {
+    public void deleteById(Integer id) {
 
         Repository.deleteById(id);
     }

@@ -57,9 +57,10 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
-    public Category update(@RequestBody Category request) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void update(@RequestBody Category request) {
 
-        return service.updateCategory(request);
+        service.updateCategory(request);
     }
 
     @DeleteMapping("/{id}")

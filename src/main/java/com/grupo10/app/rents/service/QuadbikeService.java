@@ -63,24 +63,27 @@ public class QuadbikeService {
 
     public Quadbike updateQuadbike(Quadbike quadbike) {
 
-        Quadbike quadbikeToUpdate = new Quadbike();
-
-        if (repository.existQuadbikeById(quadbike.getId())) {
+        Quadbike quadbikeToUpdate=new Quadbike();
+        
+        if(repository.existQuadbikeById(quadbike.getId())){
+            
+            Optional<Quadbike> currentQuadbike = repository.findQuadbikeById(quadbike.getId());
             quadbikeToUpdate = quadbike;
+            quadbikeToUpdate.setCategory(currentQuadbike.get().getCategory());
+            quadbikeToUpdate.setMessages(currentQuadbike.get().getMessages());
+            quadbikeToUpdate.setReservations(currentQuadbike.get().getReservations());
             repository.saveQuadbike(quadbikeToUpdate);
-        }
-
+        }        
         return quadbikeToUpdate;
+    
 
     }
 
     public Boolean deleteQuadbike(Integer id) {
-
-        repository.deleteQuadbikeById(id);
+        repository.deleteById(id);
         Boolean deleted = true;
-
         return deleted;
-
     }
+    
 
 }
