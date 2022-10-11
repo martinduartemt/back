@@ -64,10 +64,11 @@ public class CategoryService {
 
     public Boolean deleteCategory(Integer id) {
 
-        repository.deleteCategoryById(id);
-        boolean deleted = true;
-
-        return deleted;
+        Boolean d = getCategory(id).map(category -> {
+            repository.deleteCategoryById(id);
+            return true;
+        }).orElse(false);
+        return d;
 
     }
 

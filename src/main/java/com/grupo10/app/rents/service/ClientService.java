@@ -58,7 +58,7 @@ public class ClientService {
     }
     public Boolean deleteClient(Integer id) {
 
-        Boolean d = getClient(id).map(category -> {
+        Boolean d = getClient(id).map(client -> {
             repository.deleteClientById(id);
             return true;
         }).orElse(false);

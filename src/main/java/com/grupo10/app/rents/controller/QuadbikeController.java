@@ -57,6 +57,7 @@ public class QuadbikeController {
     }
 
     @PutMapping("/update")
+    @ResponseStatus(HttpStatus.CREATED)
     public void update(@RequestBody Quadbike request) {
 
         service.updateQuadbike(request);
@@ -64,7 +65,7 @@ public class QuadbikeController {
     
     
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
         service.deleteQuadbike(id);
     }
