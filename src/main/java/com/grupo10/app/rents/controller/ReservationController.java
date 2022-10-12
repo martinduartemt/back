@@ -5,7 +5,10 @@
 package com.grupo10.app.rents.controller;
 
 import com.grupo10.app.rents.entities.Reservation;
+import com.grupo10.app.rents.repository.CountClient;
 import com.grupo10.app.rents.service.ReservationService;
+import com.grupo10.app.rents.service.Status;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,6 +56,24 @@ public class ReservationController {
 
         return service.updateReservation(request);
     }
-
-
+    //reports 
+    
+    @GetMapping("/report-clients")
+    public List<CountClient> getReservationsReportClient(){
+        return service.getTopClients();
+    }
+    
+    @GetMapping("/report-dates/{dateOne}/{dateTwo}")
+    public List<Reservation> getReservationsReportDates(@PathVariable("dateOne") String dateOne,@PathVariable("dateTwo") String dateTwo){
+        return service.informePeriodoTiempoReservas(dateOne,dateTwo);
+    }
+    
+    @GetMapping("/report-status")
+    public Status getReservationsStatusReport(){
+        return service.getReservationStatusReport();
+    }
+  
 }
+
+
+

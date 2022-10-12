@@ -9,8 +9,14 @@ import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.entities.Reservation;
 import com.grupo10.app.rents.repository.ClientRepository;
+import com.grupo10.app.rents.repository.CountClient;
 import com.grupo10.app.rents.repository.QuadbikeRepository;
 import com.grupo10.app.rents.repository.ReservationRepository;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +42,7 @@ public class ReservationService {
 
         return response;
     }
-    
+
     public Optional<Reservation> getReservation(Integer id) {
 
         Optional<Reservation> response = repository.findReservationById(id);
@@ -61,7 +67,7 @@ public class ReservationService {
         return repository.saveReservation(request);
 
     }
-    
+
     public Reservation updateReservation(Reservation reservation) {
 
         Reservation reservationToUpdate = new Reservation();
@@ -74,6 +80,35 @@ public class ReservationService {
         return reservationToUpdate;
 
     }
-
     
+    //resports
+
+    public Status getReservationStatusReport() {
+        List<Reservation> completed = repository.findReservationByStatus("completed");
+        List<Reservation> cancelled = repository.findReservationByStatus("cancelled");
+        return new Status(completed.size(), cancelled.size());
+    }
+
+    public List<Reservation> informePeriodoTiempoReservas(String datoA, String datoB) {
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+
+        try {
+            a = parser.parse(datoA);
+            b = parser.parse(datoB);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (a.before(b)) {
+            return repository.findInformByDate(a, b);
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<CountClient> getTopClients() {
+        return repository.findTopClient();
+    }
+
 }
