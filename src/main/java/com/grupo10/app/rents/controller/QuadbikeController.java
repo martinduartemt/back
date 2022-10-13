@@ -39,7 +39,13 @@ public class QuadbikeController {
         return service.getQuadbike();
     }
 
-    @GetMapping("/reports/year")
+    @GetMapping("/{id}")
+    public Optional<Quadbike> get(@PathVariable("id") Integer id) {
+
+        return service.getQuadbike(id);
+    }
+
+    @GetMapping("/reports")
     public List<Object[]> getReport() {
 
         return service.getReportQuadbike();
@@ -65,9 +71,4 @@ public class QuadbikeController {
         service.deleteQuadbike(id);
     }
 
-    @GetMapping("/{id}")
-    public Optional<Quadbike> get(@PathVariable("id") Integer id) {
-
-        return service.getQuadbike(id);
-    }
 }

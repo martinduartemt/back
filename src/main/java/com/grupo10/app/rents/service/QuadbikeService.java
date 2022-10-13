@@ -52,12 +52,6 @@ public class QuadbikeService {
     }
 
     public Quadbike createQuadbike(Quadbike request) {
-
-        Optional<Category> cat = categoryRepository.findById(request.getCategory().getId());
-
-        if (!cat.isEmpty()) {
-            request.setCategory(cat.get());
-        }
         return repository.saveQuadbike(request);
 
     }
