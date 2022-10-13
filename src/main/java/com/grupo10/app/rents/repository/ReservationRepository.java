@@ -8,6 +8,7 @@ package com.grupo10.app.rents.repository;
 import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.entities.Reservation;
 import com.grupo10.app.rents.interfaces.IReservationRepository;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,23 +47,17 @@ public class ReservationRepository {
     }
     
     //reports
-    public List<Reservation> findReservationByStatus (String status){
-        return Repository.findAllByStatus(status);
-    }
-    
-    public List<Reservation> findInformByDate (Date a, Date b){
-        return Repository.findAllByDate(a, b);
-    }
-    
-    public List<CountClient> findTopClient(){
-        List<CountClient> res = new ArrayList<>();
-        List<Object[]> report = Repository.countTotalReservationByClient();
-        for(int i=0;i < report.size();i++){
-            res.add(new CountClient((Long)report.get(i)[1], (Client) report.get(i)[0]));
-        }
-        return res;
+   public List<Object[]> getReport() {
+        return Repository.countTotalclientReservation();
     }
 
+    public List<Reservation> getReservationsPeriod(Date dateA, Date dateB) {
+        return Repository.findAllByStartDateAfterAndStartDateBefore(dateA, dateB);
+    }
+    
+    public List<Reservation> getReservationsByStatus(String status){
+        return Repository.findAllByStatus(status);
+    }
 
 
 }

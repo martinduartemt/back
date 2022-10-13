@@ -4,9 +4,10 @@
  */
 package com.grupo10.app.rents.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,12 +37,14 @@ public class Reservation implements Serializable {
     @GeneratedValue(strategy =GenerationType.IDENTITY)
     @Column(name="idReservation")    
     private Integer idReservation;
-    @Column
-    
-    private Timestamp startDate;
     
     @Column
-    private Timestamp devolutionDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)    
+    private Date startDate;
+    
+    @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING)    
+    private Date devolutionDate; 
     
     @Column
     private String status="created";

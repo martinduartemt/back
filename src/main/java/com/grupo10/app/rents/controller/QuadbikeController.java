@@ -39,12 +39,6 @@ public class QuadbikeController {
         return service.getQuadbike();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Quadbike> get(@PathVariable("id") Integer id) {
-
-        return service.getQuadbike(id);
-    }
-    
     @GetMapping("/reports/year")
     public List<Object[]> getReport() {
 
@@ -64,12 +58,16 @@ public class QuadbikeController {
 
         service.updateQuadbike(request);
     }
-    
-    
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") Integer id) {
         service.deleteQuadbike(id);
     }
 
+    @GetMapping("/{id}")
+    public Optional<Quadbike> get(@PathVariable("id") Integer id) {
+
+        return service.getQuadbike(id);
+    }
 }

@@ -50,5 +50,4 @@ public class QuadbikeRepository {
 
         Repository.deleteById(id);
     }
-
 }

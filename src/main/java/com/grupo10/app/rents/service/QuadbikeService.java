@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author martinduarteflorez
+ * 
  */
 @Service
 public class QuadbikeService {

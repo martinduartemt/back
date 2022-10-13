@@ -5,11 +5,12 @@
  */
 package com.grupo10.app.rents.service;
 
+import com.grupo10.app.rents.dto.ReportClientDto;
+import com.grupo10.app.rents.dto.ReportStatusDto;
 import com.grupo10.app.rents.entities.Client;
 import com.grupo10.app.rents.entities.Quadbike;
 import com.grupo10.app.rents.entities.Reservation;
 import com.grupo10.app.rents.repository.ClientRepository;
-import com.grupo10.app.rents.repository.CountClient;
 import com.grupo10.app.rents.repository.QuadbikeRepository;
 import com.grupo10.app.rents.repository.ReservationRepository;
 import java.text.ParseException;
@@ -83,32 +84,44 @@ public class ReservationService {
     
     //resports
 
-    public Status getReservationStatusReport() {
-        List<Reservation> completed = repository.findReservationByStatus("completed");
-        List<Reservation> cancelled = repository.findReservationByStatus("cancelled");
-        return new Status(completed.size(), cancelled.size());
+   public List<ReportClientDto> getClientReport() {
+
+        List<ReportClientDto> report = new ArrayList<ReportClientDto>();
+        List<Object[]> reportData = repository.getReport();
+
+        for (int i = 0; i < reportData.size(); i++) {
+            ReportClientDto reportClientDto = new ReportClientDto();
+            reportClientDto.client = (Client) reportData.get(i)[0];
+            reportClientDto.total = (Long) reportData.get(i)[1];
+            report.add(reportClientDto);
+        }
+        return report;
+
     }
 
-    public List<Reservation> informePeriodoTiempoReservas(String datoA, String datoB) {
+    public List<Reservation> getReportDates(String dateOne, String dateTwo) {
         SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
         Date a = new Date();
         Date b = new Date();
-
         try {
-            a = parser.parse(datoA);
-            b = parser.parse(datoB);
+            a = parser.parse(dateOne);
+            b = parser.parse(dateTwo);
         } catch (ParseException e) {
             e.printStackTrace();
         }
         if (a.before(b)) {
-            return repository.findInformByDate(a, b);
+            return repository.getReservationsPeriod(a, b);
         } else {
             return new ArrayList<>();
         }
+
     }
 
-    public List<CountClient> getTopClients() {
-        return repository.findTopClient();
-    }
+    public ReportStatusDto getReservationsStatusReport() {
+        ReportStatusDto reportStatusDto = new ReportStatusDto();
+        reportStatusDto.completed=repository.getReservationsByStatus("completed").size();
+        reportStatusDto.cancelled=repository.getReservationsByStatus("cancelled").size();        
+        return reportStatusDto;
 
+    }
 }
